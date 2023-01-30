@@ -1,54 +1,123 @@
 import pygame
 import pygame_menu
-
+import sqlite3
 from snake import Snake
-from tetris2 import Tetris
-
-pygame.init()
-surface = pygame.display.set_mode((600, 400))
+from tetris import Tetris
 
 
 
 
-# def set_difficulty(value, difficulty):
-#     pass
+class MainMenu():
+    def __init__(self):
+        pygame.init()
+        self.surface = pygame.display.set_mode((600, 400))
+        self.username = '1'
+        self.info_from_bd = self.get_info_from_bd()
 
-def start_the_game():
-    if GAME == "Tetris":
-        GAME = "Snake"
-        snake = Snake(LEVEL, 500, 500)
-        snake.play()
-    else:
-        GAME = "Tetris"
-        tetris = Tetris(500, 500)
+    def start_the_game(self, flag=False):
+        res = self.get_info_from_bd()
+        conn = sqlite3.connect('db.sqlite')
+        cursor = conn.cursor()
+        if res[3] == 'Tetris':
+            if flag:
+                cursor.execute("UPDATE users SET last_game = ? WHERE usid = ?", ("Snake", int(self.username)))
+                conn.commit()
+                conn.close()
+                snake = Snake(res[2], res[4], 500, 500)
+                snake.play()
+            else:
+                cursor.execute("UPDATE users SET last_game = ? WHERE usid = ?", ("Tetris", int(self.username)))
+                conn.commit()
+                conn.close()
+                tetris = MiniTetris(res[2], res[4], 500, 500)
+                tetris.play()
+        elif res[3] == 'Snake':
+            if flag:
+                cursor.execute("UPDATE users SET last_game = ? WHERE usid = ?", ("Tetris", int(self.username)))
+                conn.commit()
+                conn.close()
+                tetris = MiniTetris(res[2], res[4], 500, 500)
+                tetris.play()
+            else:
+                cursor.execute("UPDATE users SET last_game = ? WHERE usid = ?", ("Snake", int(self.username)))
+                conn.commit()
+                conn.close()
+                snake = Snake(res[2], res[4], 500, 500)
+                snake.play()
+        else:
+            cursor.execute("UPDATE users SET last_game = ? WHERE usid = ?", ("Tetris", int(self.username)))
+            conn.commit()
+            conn.close()
+            tetris = MiniTetris(res[2], res[4], 500, 500)
+            tetris.play()
+
+    def end_the_game(self, flag=False, score=0):
+        conn = sqlite3.connect('db.sqlite')
+        cursor = conn.cursor()
+        if flag:
+            cursor.execute("UPDATE users SET last_score = ? WHERE usid = ?", (score, int(self.username)))
+            conn.commit()
+            conn.close()
+        else:
+            cursor.execute("UPDATE users SET last_score = ? WHERE usid = ?", (0, int(self.username)))
+        quit()
+
+    def rules(self):
+        pass
+
+    def get_info_from_bd(self):
+        conn = sqlite3.connect('db.sqlite')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE usid = ?", (int(self.username),))
+        result = cursor.fetchone()
+        if not result:
+            cursor.execute("INSERT INTO users (usid) VALUES (?)", (int(self.username),))
+            conn.commit()
+            cursor.execute("SELECT * FROM users WHERE usid = ?", (int(self.username),))
+            result = cursor.fetchone()
+        conn.close()
+        return result
+
+    def change_user(self, _, difficulty):
+        self.username = difficulty
+        self.info_from_bd = self.get_info_from_bd()
+
+    def main(self):
+        menu = pygame_menu.Menu('Добро пожаловать!', 400, 300,
+                                theme=pygame_menu.themes.THEME_SOLARIZED)
+
+        menu.add.selector('Игрок :', [('1', 1)], onchange=self.change_user)
+        menu.add.button('Играть', self.start_the_game)
+        menu.add.button('Правила', self.rules)
+        menu.add.button('Выйти', pygame_menu.events.EXIT)
+
+        menu.mainloop(self.surface)
+
+
+class MiniTetris():
+    def __init__(self, level, score, win_x=500, win_y=500):
+        self.level = level
+        self.score = score
+        self.win_x = win_x
+        self.win_y = win_y
+
+    def play(self):
+        tetris = Tetris(self.level, self.score, self.win_x, self.win_y)
         tetris.main()
 
 
-def rules():
-    pass
+class MiniSnake():
+    def __init__(self, level, score, win_x=500, win_y=500):
+        self.level = level
+        self.score = score
+        self.win_x = win_x
+        self.win_y = win_y
 
-def get_info_from_bd(username):
-    import sqlite3
-    conn = sqlite3.connect('db.sqlite')
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
-    result = cursor.fetchone()
-    conn.close()
-    if not result:
-        cursor.execute("INSERT INTO users (username) VALUES (?)", (username,))
-        conn.commit()
-        conn.close()
-def main():
-    menu = pygame_menu.Menu('Добро пожаловать!', 400, 300,
-                            theme=pygame_menu.themes.THEME_SOLARIZED)
+    def play(self):
+        snake = Snake(self.level, self.score, self.win_x, self.win_y)
+        snake.play()
 
-    menu.add.text_input('Имя: ', default='Неизвестный', onreturn=get_info_from_bd)
-    # menu.add.selector('Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
-    menu.add.button('Играть', start_the_game)
-    menu.add.button('Правила', rules)
-    menu.add.button('Выйти', pygame_menu.events.EXIT)
-
-    menu.mainloop(surface)
 
 if "__main__" == __name__:
-    main()
+    main = MainMenu()
+    main.main()

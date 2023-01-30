@@ -28,8 +28,9 @@ class Fruit():
 
 
 class Snake:
-    def __init__(self, level, window_x, window_y):
+    def __init__(self, level, score, window_x, window_y):
         self.level = level
+        self.score = score
         self.snake_speed = 10
         self.window_x = window_x
         self.window_y = window_y
@@ -54,7 +55,6 @@ class Snake:
         self.direction = 'RIGHT'
         self.change_to = self.direction
         self.die = False
-        self.score = 0
     def show_score(self, _, color, font, size):
         score_font = pygame.font.SysFont(font, size)
         score_surface = score_font.render('Раунд : ' + str(self.level) + '\nСчёт: ' + str(self.score), True, color)
@@ -64,23 +64,30 @@ class Snake:
 
     def game_over(self):
         self.snake_speed = 0
-        my_font = pygame.font.SysFont('times new roman', 50)
-        game_over_surface = my_font.render('Результат : ' + str(self.score), True, COLORS[2])
-        game_over_rect = game_over_surface.get_rect()
-        game_over_rect.midtop = (self.window_x / 2, self.window_y / 4)
-        self.game_window.blit(game_over_surface, game_over_rect)
-        pygame.display.flip()
+        # my_font = pygame.font.SysFont('times new roman', 50)
+        # game_over_surface = my_font.render('Результат : ' + str(self.score), True, COLORS[2])
+        # game_over_rect = game_over_surface.get_rect()
+        # game_over_rect.midtop = (self.window_x / 2, self.window_y / 4)
+        # self.game_window.blit(game_over_surface, game_over_rect)
+        # pygame.display.flip()
+        from main_menu import MainMenu
+        pygame.quit()
+        main_menu = MainMenu()
+        main_menu.end_the_game()
 
     def play(self):
         while True:
             if self.score == 8 + self.level * 2:
-                from main_menu import start_the_game
+                from main_menu import MainMenu
                 pygame.quit()
-                start_the_game()
+                main_menu = MainMenu()
+                main_menu.start_the_game(True)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    from main_menu import MainMenu
                     pygame.quit()
-                    sys.exit()
+                    main_menu = MainMenu()
+                    main_menu.end_the_game(True, self.score)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
                         self.change_to = 'UP'
