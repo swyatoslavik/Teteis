@@ -76,10 +76,11 @@ class Snake:
 
     def play(self):
         while True:
-            if self.score == 8 + self.level * 2:
+            if self.score >= 8 + self.level * 2 + (1 + self.level):
                 from main_menu import MainMenu
                 pygame.quit()
                 main_menu = MainMenu()
+
                 main_menu.start_the_game(True, self.score)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

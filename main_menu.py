@@ -59,8 +59,9 @@ class MainMenu():
             conn.commit()
             conn.close()
         else:
+            cursor.execute("SELECT best_result FROM users WHERE usid = ?", (int(self.username),))
+            high_score = cursor.fetchone()
             cursor.execute("DELETE FROM users WHERE usid = ?", (int(self.username),))
-            high_score = cursor.execute("SELECT best_result FROM users WHERE usid = ?", (int(self.username),))
             conn.commit()
             print(high_score)
         quit()
@@ -103,6 +104,14 @@ class MainMenu():
 
         menu.mainloop(self.surface)
 
+    def update_level(self):
+        conn = sqlite3.connect('db.sqlite')
+        cursor = conn.cursor()
+        cursor.execute("SELECT level FROM users WHERE usid = ?", (int(self.username),))
+        old_level = cursor.fetchone()
+        cursor.execute("UPDATE users SET level = ? WHERE usid = ?", (old_level[0] + 1, int(self.username)))
+        conn.commit()
+        conn.close()
 
 class MiniTetris():
     def __init__(self, level, score, win_x=500, win_y=500):
