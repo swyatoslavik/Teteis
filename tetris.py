@@ -4,7 +4,7 @@ from pygame.locals import *
 
 
 class Tetris():
-    def __init__(self, level, score,window_w, window_h):
+    def __init__(self, level, score, window_w, window_h):
         self.level = level
         self.points = score
         self.fps = 25
@@ -154,13 +154,16 @@ class Tetris():
                 from main_menu import MainMenu
                 pg.quit()
                 main_menu = MainMenu()
-                main_menu.start_the_game(True)
+                main_menu.start_the_game(True, self.points)
             if fallingFig == None:
                 fallingFig = nextFig
                 nextFig = self.getNewFig()
                 last_fall = time.time()
                 if not self.checkPos(cup, fallingFig):
-                    return  # если на игровом поле нет свободного места - игра закончена
+                    from main_menu import MainMenu
+                    pg.quit()
+                    main_menu = MainMenu()
+                    main_menu.end_the_game(False, self.points)
             self.quitGame()
             for event in pg.event.get():
                 if event.type == KEYUP:

@@ -2,7 +2,6 @@ import pygame
 import sys
 import random
 
-
 COLORS = ((0, 0, 225), (0, 225, 0), (225, 0, 0), (225, 225, 0))  # синий, зеленый, красный, желтый
 LIGHTCOLORS = ((30, 30, 255), (50, 255, 50), (255, 30, 30),
                (255, 255, 30))  # светло-синий, светло-зеленый, светло-красный, светло-желтый
@@ -55,12 +54,12 @@ class Snake:
         self.direction = 'RIGHT'
         self.change_to = self.direction
         self.die = False
+
     def show_score(self, _, color, font, size):
         score_font = pygame.font.SysFont(font, size)
         score_surface = score_font.render('Раунд : ' + str(self.level) + '\nСчёт: ' + str(self.score), True, color)
         score_rect = score_surface.get_rect()
         self.game_window.blit(score_surface, score_rect)
-
 
     def game_over(self):
         self.snake_speed = 0
@@ -81,7 +80,7 @@ class Snake:
                 from main_menu import MainMenu
                 pygame.quit()
                 main_menu = MainMenu()
-                main_menu.start_the_game(True)
+                main_menu.start_the_game(True, self.score)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     from main_menu import MainMenu
@@ -144,4 +143,3 @@ class Snake:
             self.show_score(1, self.white, 'times new roman', 20)
             pygame.display.update()
             self.fps.tick(8 + (2 * self.level))
-

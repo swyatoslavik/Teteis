@@ -5,8 +5,6 @@ from snake import Snake
 from tetris import Tetris
 
 
-
-
 class MainMenu():
     def __init__(self):
         pygame.init()
@@ -14,7 +12,9 @@ class MainMenu():
         self.username = '1'
         self.info_from_bd = self.get_info_from_bd()
 
-    def start_the_game(self, flag=False):
+    def start_the_game(self, flag=False, score=0):
+        if score != 0:
+            self.insert_info_to_bd(score)
         res = self.get_info_from_bd()
         conn = sqlite3.connect('db.sqlite')
         cursor = conn.cursor()
@@ -59,7 +59,10 @@ class MainMenu():
             conn.commit()
             conn.close()
         else:
-            cursor.execute("UPDATE users SET last_score = ? WHERE usid = ?", (0, int(self.username)))
+            cursor.execute("DELETE FROM users WHERE usid = ?", (int(self.username),))
+            high_score = cursor.execute("SELECT best_result FROM users WHERE usid = ?", (int(self.username),))
+            conn.commit()
+            print(high_score)
         quit()
 
     def rules(self):
@@ -77,6 +80,13 @@ class MainMenu():
             result = cursor.fetchone()
         conn.close()
         return result
+
+    def insert_info_to_bd(self, score):
+        conn = sqlite3.connect('db.sqlite')
+        cursor = conn.cursor()
+        cursor.execute("UPDATE users SET last_score = ? WHERE usid = ?", (score, int(self.username)))
+        conn.commit()
+        conn.close()
 
     def change_user(self, _, difficulty):
         self.username = difficulty
