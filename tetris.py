@@ -403,38 +403,38 @@ class Tetris():
     def drawTitle(self):
         titleSurf = self.big_font.render('Тетрис', True, self.title_color)
         titleRect = titleSurf.get_rect()
-        titleRect.topleft = (self.window_w - 405, 5)
+        titleRect.topleft = (self.window_w - 355, 5)
         self.display_surf.blit(titleSurf, titleRect)
 
     def drawInfo(self, points, level):
         pointsSurf = self.basic_font.render(f'Баллы: {points}', True, self.txt_color)
         pointsRect = pointsSurf.get_rect()
-        pointsRect.topleft = (self.window_w - 550, 180)
+        pointsRect.topleft = (self.window_w - 480, 180)
         self.display_surf.blit(pointsSurf, pointsRect)
 
         levelSurf = self.basic_font.render(f'Уровень: {level}', True, self.txt_color)
         levelRect = levelSurf.get_rect()
-        levelRect.topleft = (self.window_w - 550, 250)
+        levelRect.topleft = (self.window_w - 480, 250)
         self.display_surf.blit(levelSurf, levelRect)
 
         pausebSurf = self.basic_font.render('space', True, self.title_color)
         pausebRect = pausebSurf.get_rect()
-        pausebRect.topleft = (self.window_w - 77, 455)
+        pausebRect.topleft = (self.window_w - 67, 455)
         self.display_surf.blit(pausebSurf, pausebRect)
 
         pausebSurf = self.basic_font.render('Пауза:', True, self.txt_color)
         pausebRect = pausebSurf.get_rect()
-        pausebRect.topleft = (self.window_w - 145, 455)
+        pausebRect.topleft = (self.window_w - 135, 455)
         self.display_surf.blit(pausebSurf, pausebRect)
 
         escbSurf = self.basic_font.render('Esc', True, self.info_color)
         escbRect = escbSurf.get_rect()
-        escbRect.topleft = (self.window_w - 502, 455)
+        escbRect.topleft = (self.window_w - 410, 455)
         self.display_surf.blit(escbSurf, escbRect)
 
         escbSurf = self.basic_font.render('Выход:', True, self.txt_color)
         escbRect = escbSurf.get_rect()
-        escbRect.topleft = (self.window_w - 580, 455)
+        escbRect.topleft = (self.window_w - 488, 455)
         self.display_surf.blit(escbSurf, escbRect)
 
     def drawFig(self, fig, pixelx=None, pixely=None):
@@ -451,6 +451,6 @@ class Tetris():
     def drawnextFig(self, fig):  # превью следующей фигуры
         nextSurf = self.basic_font.render('Следующая:', True, self.txt_color)
         nextRect = nextSurf.get_rect()
-        nextRect.topleft = (self.window_w - 165, 180)
+        nextRect.topleft = (self.window_w - 135, 180)
         self.display_surf.blit(nextSurf, nextRect)
-        self.drawFig(fig, pixelx=self.window_w - 150, pixely=220)
+        self.drawFig(fig, pixelx=self.window_w - 120, pixely=220)

@@ -113,6 +113,7 @@ class MainMenu():
         conn.commit()
         conn.close()
 
+
 class MiniTetris():
     def __init__(self, level, score, win_x=500, win_y=500):
         self.level = level
