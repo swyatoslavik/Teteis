@@ -162,7 +162,7 @@ class Tetris():
                 last_fall = time.time()
                 if not self.checkPos(cup, fallingFig):
                     from main_menu import MainMenu
-                    self.showTextRed("game over")
+                    self.showTextRed("Игра окончена")
                     pg.quit()
                     main_menu = MainMenu()
                     main_menu.end_the_game(False, self.points)
