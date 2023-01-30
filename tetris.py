@@ -1,4 +1,3 @@
-
 import pygame as pg
 import random, time, sys
 from pygame.locals import *
@@ -163,6 +162,7 @@ class Tetris():
                 last_fall = time.time()
                 if not self.checkPos(cup, fallingFig):
                     from main_menu import MainMenu
+                    self.showTextRed("game over")
                     pg.quit()
                     main_menu = MainMenu()
                     main_menu.end_the_game(False, self.points)
@@ -456,5 +456,3 @@ class Tetris():
         nextRect.topleft = (self.window_w - 135, 180)
         self.display_surf.blit(nextSurf, nextRect)
         self.drawFig(fig, pixelx=self.window_w - 120, pixely=220)
-
-
