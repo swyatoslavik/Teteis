@@ -1,3 +1,4 @@
+
 import pygame as pg
 import random, time, sys
 from pygame.locals import *
@@ -19,7 +20,8 @@ class Tetris():
                             (255, 255, 30))  # светло-синий, светло-зеленый, светло-красный, светло-желтый
         self.white, self.gray, self.black = (255, 255, 255), (185, 185, 185), (0, 0, 0)
         self.brd_color, self.bg_color, self.txt_color, self.title_color, self.info_color = self.white, self.black, self.white, \
-            self.colors[3], self.colors[2]
+                                                                                           self.colors[3], self.colors[
+                                                                                               2]
 
         self.fig_w, self.fig_h = 5, 5
         self.empty = 'o'
@@ -309,7 +311,7 @@ class Tetris():
     def calcSpeed(self, points):
         # вычисляет уровень
         level = int(points / 10) + 1
-        fall_speed = 0.27 - (level * 0.02)
+        fall_speed = 0.27 - (level * 0.05)
         return level, fall_speed
 
     def getNewFig(self):
@@ -454,3 +456,5 @@ class Tetris():
         nextRect.topleft = (self.window_w - 135, 180)
         self.display_surf.blit(nextSurf, nextRect)
         self.drawFig(fig, pixelx=self.window_w - 120, pixely=220)
+
+
