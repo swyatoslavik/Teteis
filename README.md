@@ -16,8 +16,8 @@ We created the game using the Pygame library in Python. Its rules are simple:
     Level 5: Tetris - 8 points. Snake - 25
 
 To try our creation, you need to download all the files from the repository into one folder and run the file main_menu.py .
-
 Have a good game!
+
 
 -RU
 Привет новый пользователь нашей программы!
@@ -33,7 +33,6 @@ Have a good game!
     2 уровень: Тоже самое, но быстрее. Тетрис - 5 очков. Змейка - 10
     3 уровень: Тетрис - 6 очков. Змейка - 15
     4 уровень: Тетрис - 7 очков. Змейка - 20
-    5 уровень: Тетрис - 8 очков. Змейка - 25
+    5 уровень: Тетрис - 8 очков. Змейка - 25 
 Чтобы попробовать наше творение, нужно скачать все файлы из репозитория в одну папку и запустить файл main_menu.py .
-
 Удачной игры!
