@@ -14,6 +14,7 @@ We created the game using the Pygame library in Python. Its rules are simple:
     Level 3: Tetris - 6 points. Snake - 15
     Level 4: Tetris - 7 points. Snake - 20
     Level 5: Tetris - 8 points. Snake - 25
+
 To try our creation, you need to download all the files from the repository into one folder and run the file main_menu.py .
 
 Have a good game!
