@@ -9,6 +9,7 @@ We created the game using the Pygame library in Python. Its rules are simple:
 5) The game will end if you:
   1. Lose in any of the mini-games
   2. Complete all levels:
+  
     Level 1: Tetris. The figures fall slowly. You need to score 3 points. Then the snake starts. It's also slow there, you need to score 5 points. Then the 2nd level.
     Level 2: The same, but faster. Tetris - 5 points. Snake - 10
     Level 3: Tetris - 6 points. Snake - 15
