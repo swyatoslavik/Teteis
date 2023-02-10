@@ -19,6 +19,21 @@ We created the game using the Pygame library in Python. Its rules are simple:
 To try our creation, you need to download all the files from the repository into one folder and run the file main_menu.py .
 Have a good game!
 
+Example for Windows:
+```
+python -m vev vev
+source venv/Scripts/activate
+pip install -r requirements.txt
+python main_menu.py
+```
+Example for Linux / macOS:
+```
+python 3 -m ven ven
+source venv/bin/activate
+pip3 install -r requirements.txt
+python 3 main_menu.py
+```
+
 Creators:
 https://github.com/swyatoslavik
 https://github.com/Vladislav1245
@@ -42,7 +57,22 @@ https://github.com/Vladislav1245
     5 уровень: Тетрис - 8 очков. Змейка - 25 
     
 Чтобы попробовать наше творение, нужно скачать все файлы из репозитория в одну папку и запустить файл main_menu.py .
-Удачной игры!
+Удачной игры! 
+
+Пример для Windows:
+```
+python -m venv venv
+source venv/Scripts/activate
+pip install -r requirements.txt
+python main_menu.py
+```
+Пример для Linux / macOS:
+```
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+python3 main_menu.py
+```
 
 Создатели:
 https://github.com/swyatoslavik
