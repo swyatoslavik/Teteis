@@ -19,6 +19,10 @@ We created the game using the Pygame library in Python. Its rules are simple:
 To try our creation, you need to download all the files from the repository into one folder and run the file main_menu.py .
 Have a good game!
 
+Creators:
+https://github.com/swyatoslavik
+https://github.com/Vladislav1245
+
 
 -RU
 Привет новый пользователь нашей программы!
@@ -39,3 +43,7 @@ Have a good game!
     
 Чтобы попробовать наше творение, нужно скачать все файлы из репозитория в одну папку и запустить файл main_menu.py .
 Удачной игры!
+
+Создатели:
+https://github.com/swyatoslavik
+https://github.com/Vladislav1245
